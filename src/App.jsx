@@ -25,6 +25,20 @@ export default function App() {
   useEffect(() => {
     passwordgenerator()
   }, [lenght, numberAllowed, charAllowed, passwordgenerator])
+
+// const handlecopy = () => {
+//   console.log('i am copy')
+//   var text = document.getElementById('characterInput');
+//   text.select();
+//   text.setSelectionRange(0,9999);
+//   navigator.clipboard.writeText(text.value);
+// }
+
+execCommand('copy');
+  alert('This is a test...');
+
+
+
   return (
     <>
       <div className='w-full max-w-md mx-auto shadow-md rounded-lg px-4 py-3 my-8 text-orange-500 bg-gray-800'>
@@ -38,7 +52,7 @@ export default function App() {
             readOnly
           ></input>
 
-          <button className='outline-none bg-blue-700 text-white px-3 py-0.5 shrink-0'>Copy</button>
+          <button className='outline-none bg-blue-700 text-white px-3 py-0.5 shrink-0' onClick={handlecopy}>Copy</button>
         </div>
 
         <div className='flex text-sm gap-x-2'>
@@ -74,7 +88,7 @@ export default function App() {
                 setCharAllowed((prev) => !prev)
               }}
             />
-            <label htmlFor="characterInput">Symbols</label>
+            <label>Symbols</label>
           </div>
         </div>
       </div>
