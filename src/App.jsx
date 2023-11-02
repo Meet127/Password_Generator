@@ -1,5 +1,5 @@
 import './App.css'
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useCallback, useEffect,useRef } from 'react'
 
 export default function App() {
 
@@ -7,6 +7,9 @@ export default function App() {
   const [numberAllowed, setNumberAllowed] = useState(false);
   const [charAllowed, setCharAllowed] = useState(false);
   const [password, setPassword] = useState("");
+
+  //useRef hook
+  const passwordRef = useRef(null);
 
   const passwordgenerator = useCallback(() => {
     let pass = ""
@@ -22,14 +25,16 @@ export default function App() {
 
   }, [lenght, numberAllowed, charAllowed, setPassword])
 
+  const copyPasswordToClipboard = useCallback(() => {
+    passwordRef.current?.select();
+    passwordRef.current?.setSelectionRange(0,101)
+    window.navigator.clipboard.writeText(password)
+  },[password])
+
   useEffect(() => {
     passwordgenerator()
   }, [lenght, numberAllowed, charAllowed, passwordgenerator])
 
-const handlecopy = () =>{
-  navigator.clipboard.writeText(password);
-  alert('Text Copied');
-}
 
   return (
     <>
@@ -42,9 +47,12 @@ const handlecopy = () =>{
             className='outline-none w-full py-1 px-3'
             placeholder='password'
             readOnly
+            ref={passwordRef}
           ></input>
 
-          <button className='outline-none bg-blue-700 text-white px-3 py-0.5 shrink-0' onClick={handlecopy}>Copy</button>
+          <button 
+          onClick={copyPasswordToClipboard}
+          className='outline-none bg-blue-700 text-white px-3 py-0.5 shrink-0'>Copy</button>
         </div>
 
         <div className='flex text-sm gap-x-2'>
@@ -76,9 +84,8 @@ const handlecopy = () =>{
               type="checkbox"
               defaultChecked={charAllowed}
               id="characterInput"
-              onChange={(e) => {
+              onChange={() => {
                 setCharAllowed((prev) => !prev)
-                setPassword(e.target.value)
               }}
             />
             <label>Symbols</label>
