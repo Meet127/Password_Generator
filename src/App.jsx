@@ -74,7 +74,7 @@ export default function App() {
                 setCharAllowed((prev) => !prev)
               }}
             />
-            <label htmlFor="characterInput">Characters</label>
+            <label htmlFor="characterInput">Symbols</label>
           </div>
         </div>
       </div>
