@@ -26,18 +26,10 @@ export default function App() {
     passwordgenerator()
   }, [lenght, numberAllowed, charAllowed, passwordgenerator])
 
-// const handlecopy = () => {
-//   console.log('i am copy')
-//   var text = document.getElementById('characterInput');
-//   text.select();
-//   text.setSelectionRange(0,9999);
-//   navigator.clipboard.writeText(text.value);
-// }
-
-execCommand('copy');
-  alert('This is a test...');
-
-
+const handlecopy = () =>{
+  navigator.clipboard.writeText(password);
+  alert('Text Copied');
+}
 
   return (
     <>
@@ -84,8 +76,9 @@ execCommand('copy');
               type="checkbox"
               defaultChecked={charAllowed}
               id="characterInput"
-              onChange={() => {
+              onChange={(e) => {
                 setCharAllowed((prev) => !prev)
+                setPassword(e.target.value)
               }}
             />
             <label>Symbols</label>
